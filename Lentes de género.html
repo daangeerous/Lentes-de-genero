@@ -1,0 +1,1008 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Lentes de género</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: aula proyectable. Barra de temas fija arriba; cada tema es una "vista" (hash) con bandas: apertura, conceptos, actividad, datos, sesión, cuestionario, fuentes. Paleta: morado 8M + verde pañuelo sobre papel lila frío. */
+:root{
+  --paper:#F6F5F8; --surface:#FFFFFF; --ink:#1E1A26; --muted:#5E5869; --line:#DCD8E3;
+  --morado:#5B2A86; --morado-soft:#EFE7F7; --verde:#1C6E46; --verde-soft:#E2F1E9;
+  --alerta:#A61E2B; --alerta-soft:#FBE8EA; --on-accent:#FFFFFF;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Literata",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --base:17px; --radius:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#15121B; --surface:#1E1A26; --ink:#ECE8F2; --muted:#A9A2B6; --line:#332D3F;
+  --morado:#C39BEA; --morado-soft:#2A2238; --verde:#6BCF9C; --verde-soft:#17291F;
+  --alerta:#F28A93; --alerta-soft:#3A1E22; --on-accent:#15121B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#15121B; --surface:#1E1A26; --ink:#ECE8F2; --muted:#A9A2B6; --line:#332D3F;
+  --morado:#C39BEA; --morado-soft:#2A2238; --verde:#6BCF9C; --verde-soft:#17291F;
+  --alerta:#F28A93; --alerta-soft:#3A1E22; --on-accent:#15121B; color-scheme:dark}
+:root.proyector{--base:21px}
+
+*{box-sizing:border-box}
+html{font-size:var(--base)}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--morado)}
+:focus-visible{outline:3px solid var(--verde);outline-offset:2px;border-radius:4px}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.prose{max-width:66ch}
+.label{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* Barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-block:8px}
+.brand{font-family:var(--f-display);font-weight:850;font-stretch:115%;font-size:1.02rem;text-decoration:none;color:var(--ink);white-space:nowrap}
+.brand span{color:var(--morado)}
+.tabs{display:flex;gap:4px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{font-family:var(--f-display);font-weight:600;font-size:.86rem;text-decoration:none;color:var(--muted);padding:8px 12px;border-radius:999px;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--morado);color:var(--on-accent)}
+.tabs a:hover:not([aria-current]){background:var(--morado-soft);color:var(--ink)}
+.tool{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 12px;font-family:var(--f-display);font-size:.8rem;font-weight:600;white-space:nowrap}
+.tool[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:var(--on-accent)}
+
+/* Bandas */
+.band{padding-block:clamp(32px,5vw,56px)}
+.band+.band{border-top:1px solid var(--line)}
+.band.tint{background:var(--surface)}
+.band h2{font-size:clamp(1.45rem,3.2vw,2rem);font-weight:800;font-stretch:105%;margin-bottom:.4em}
+.band .intro{color:var(--muted);max-width:66ch;margin-bottom:1.4rem}
+.stack{display:grid;gap:14px}
+
+/* Portada */
+.hero{padding-block:clamp(36px,7vw,80px) clamp(28px,4vw,44px)}
+.hero h1{font-size:clamp(2.6rem,9vw,5.6rem);font-weight:900;font-stretch:125%;letter-spacing:-.02em;line-height:.95}
+.hero h1 em{font-style:normal;color:var(--morado)}
+.hero p{margin-top:1rem;font-size:1.12rem;max-width:58ch}
+.lens{display:inline-flex;gap:6px;margin-bottom:18px}
+.lens i{width:26px;height:26px;border-radius:50%;border:4px solid var(--morado);display:block}
+.lens i+i{border-color:var(--verde)}
+.temas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;margin-top:28px}
+.tema-card{display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
+.tema-card:hover{transform:translateY(-2px);border-color:var(--morado)}
+.tema-card h3{font-size:1.2rem;font-weight:800}
+.tema-card p{color:var(--muted);font-size:.92rem}
+.tema-card .go{margin-top:auto;font-family:var(--f-display);font-weight:700;color:var(--morado);font-size:.88rem}
+.uso{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px}
+.uso div{display:grid;gap:6px}
+.uso h3{font-size:1rem;font-weight:750}
+.uso p{color:var(--muted);font-size:.94rem}
+
+/* Cabecera de tema */
+.tema-head{padding-block:clamp(32px,6vw,64px) clamp(24px,4vw,40px);background:var(--morado-soft)}
+.tema-head h1{font-size:clamp(2rem,6vw,3.6rem);font-weight:900;font-stretch:118%;letter-spacing:-.01em;margin:.3em 0 .35em}
+.tema-head .sub{font-size:1.08rem;max-width:60ch}
+.detonadora{margin-top:22px;display:grid;gap:6px;padding:16px 18px;border-left:5px solid var(--verde);background:var(--surface);border-radius:0 var(--radius) var(--radius) 0;max-width:66ch}
+.detonadora p{font-family:var(--f-display);font-weight:650;font-size:1.15rem;line-height:1.35}
+
+/* Conceptos (tarjetas que se voltean) */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:12px}
+.flip{position:relative;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:16px;min-height:150px;display:flex;flex-direction:column;gap:8px}
+.flip h3{font-size:1.08rem;font-weight:780}
+.flip .hint{margin-top:auto;font-family:var(--f-mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.flip .back{display:none;font-size:.93rem}
+.flip .back cite{display:block;margin-top:6px;font-style:normal;font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.flip[aria-expanded="true"]{background:var(--morado-soft);border-color:var(--morado)}
+.flip[aria-expanded="true"] .back{display:block}
+.flip[aria-expanded="true"] .hint{display:none}
+
+/* Citas y notas */
+blockquote{margin:0;padding:18px 20px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--line);max-width:70ch}
+blockquote p{font-size:1.1rem;font-style:italic}
+blockquote footer{margin-top:8px;font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+.nota{padding:14px 16px;border-radius:var(--radius);background:var(--verde-soft);max-width:70ch;font-size:.95rem}
+.nota strong{font-family:var(--f-display)}
+.nota.alerta{background:var(--alerta-soft)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
+.panel h3{font-size:1.1rem;font-weight:780}
+.panel p,.panel li{font-size:.95rem}
+.panel ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+
+/* Mito / realidad */
+.mitos{display:grid;gap:12px}
+.mito{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:10px}
+.mito .enunciado{font-family:var(--f-display);font-weight:650;font-size:1.08rem;line-height:1.35}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font-family:var(--f-display);font-weight:650;font-size:.88rem}
+.chip:hover{border-color:var(--morado)}
+.chip.ok{background:var(--verde);border-color:var(--verde);color:var(--on-accent)}
+.chip.no{background:var(--alerta);border-color:var(--alerta);color:var(--on-accent)}
+.fb{font-size:.94rem;padding:10px 12px;border-radius:8px;background:var(--paper)}
+.fb b{font-family:var(--f-display)}
+
+/* Línea del tiempo */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.filtros .chip[aria-pressed="true"]{background:var(--morado);border-color:var(--morado);color:var(--on-accent)}
+.timeline{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:4px}
+.timeline::before{content:"";position:absolute;left:68px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.hito{display:grid;grid-template-columns:56px 1fr;gap:24px;position:relative}
+.hito .anio{font-family:var(--f-mono);font-weight:500;font-size:.88rem;text-align:right;padding-top:12px;font-variant-numeric:tabular-nums}
+.hito::after{content:"";position:absolute;left:63px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--morado)}
+.hito[data-era="hoy"]::after{border-color:var(--verde)}
+.hito button{text-align:left;background:none;border:0;padding:10px 12px;border-radius:8px;display:grid;gap:4px;width:100%}
+.hito button:hover{background:var(--morado-soft)}
+.hito h4{font-size:1rem;font-weight:700}
+.hito .det{display:none;font-size:.93rem;color:var(--ink)}
+.hito .det small{display:block;margin-top:4px;font-family:var(--f-mono);font-size:.7rem;color:var(--muted)}
+.hito button[aria-expanded="true"]{background:var(--surface);box-shadow:0 0 0 1px var(--line)}
+.hito button[aria-expanded="true"] .det{display:block}
+
+/* Gráficas de barras */
+.bars{display:grid;gap:14px;max-width:720px}
+.bar-row{display:grid;grid-template-columns:minmax(110px,190px) 1fr;gap:12px;align-items:center}
+.bar-row .bl{font-size:.9rem;line-height:1.3}
+.bar-track{position:relative;height:30px;background:var(--paper);border:1px solid var(--line);border-radius:6px;margin-right:6.5em}
+.bar-fill{position:absolute;inset:0 auto 0 0;background:var(--morado);border-radius:5px 0 0 5px}
+.bar-fill.v{background:var(--verde)}
+.bar-val{position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);white-space:nowrap;font-family:var(--f-mono);font-size:.82rem;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink)}
+.chart-src{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:4px}
+.stat b{font-family:var(--f-display);font-weight:850;font-size:2rem;font-stretch:110%;color:var(--morado);font-variant-numeric:tabular-nums;line-height:1}
+.stat span{font-size:.9rem}
+.stat small{font-family:var(--f-mono);font-size:.7rem;color:var(--muted)}
+
+/* Acordeón */
+details.acc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+details.acc+details.acc{margin-top:8px}
+details.acc summary{list-style:none;cursor:pointer;padding:14px 16px;font-family:var(--f-display);font-weight:700;display:flex;justify-content:space-between;gap:12px;align-items:center}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:"+";font-family:var(--f-mono);font-size:1.2rem;color:var(--morado)}
+details.acc[open] summary::after{content:"–"}
+details.acc .body{padding:0 16px 16px;font-size:.95rem;display:grid;gap:8px;max-width:72ch}
+
+/* Mandatos */
+.mandatos{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:10px}
+.mandato{text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:12px 14px;display:flex;gap:10px;align-items:flex-start;font-size:.95rem}
+.mandato .box{flex:none;width:20px;height:20px;border:2px solid var(--muted);border-radius:5px;margin-top:3px;display:grid;place-items:center;font-size:.8rem}
+.mandato[aria-pressed="true"]{border-color:var(--morado);background:var(--morado-soft)}
+.mandato[aria-pressed="true"] .box{background:var(--morado);border-color:var(--morado);color:var(--on-accent)}
+.triada{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin-top:16px}
+.vertice{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:6px;transition:border-color .2s,background .2s}
+.vertice h4{font-size:1rem;font-weight:780}
+.vertice .n{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.vertice.on{border-color:var(--morado);background:var(--morado-soft)}
+.vertice ul{margin:0;padding-left:1.1em;font-size:.9rem}
+
+/* Clasificador identidad */
+.clasif{display:grid;gap:10px}
+.clasif .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:grid;gap:10px}
+.clasif .item p.e{font-family:var(--f-display);font-weight:600;font-size:1.02rem}
+.dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.dim{border-radius:var(--radius);padding:16px;background:var(--surface);border:1px solid var(--line);display:grid;gap:6px;align-content:start}
+.dim .tag{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--verde)}
+.dim h3{font-size:1.08rem;font-weight:780}
+.dim p{font-size:.93rem}
+.dim blockquote{padding:10px 12px;font-size:.86rem}
+.dim blockquote p{font-size:.9rem}
+.score{font-family:var(--f-display);font-weight:700;margin-top:6px}
+
+/* Holones */
+.holones{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:center}
+.holo-svg{width:100%;max-width:420px;margin:0 auto;display:block}
+.holo-svg circle{fill-opacity:.16;stroke-width:2.5;cursor:pointer;transition:fill-opacity .2s}
+.holo-svg circle.on{fill-opacity:.42}
+.holo-svg text{font-family:var(--f-display);font-weight:700;font-size:15px;fill:var(--ink);pointer-events:none}
+.holo-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.holo-btns .chip[aria-pressed="true"]{background:var(--morado);border-color:var(--morado);color:var(--on-accent)}
+@media (max-width:720px){.holones{grid-template-columns:1fr}}
+
+/* Sesión */
+.sesion{background:var(--verde-soft);border-radius:var(--radius);padding:20px;display:grid;gap:12px}
+.sesion h3{font-size:1.15rem;font-weight:800}
+.sesion ol{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.timer{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.timer output{font-family:var(--f-mono);font-size:1.8rem;font-weight:500;font-variant-numeric:tabular-nums;min-width:5ch}
+.btn{border:0;background:var(--verde);color:var(--on-accent);border-radius:999px;padding:9px 16px;font-family:var(--f-display);font-weight:700;font-size:.9rem}
+.btn.ghost{background:transparent;border:1.5px solid var(--verde);color:var(--ink)}
+
+/* Cuestionario */
+.quiz{display:grid;gap:14px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:10px}
+.q .p{font-family:var(--f-display);font-weight:700;font-size:1.04rem;line-height:1.35}
+.q .opts{display:grid;gap:8px}
+.q .opts button{text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:8px;padding:10px 12px;font-size:.95rem}
+.q .opts button:hover:not(:disabled){border-color:var(--morado)}
+.q .opts button.ok{border-color:var(--verde);background:var(--verde-soft)}
+.q .opts button.no{border-color:var(--alerta);background:var(--alerta-soft)}
+.q .opts button:disabled{cursor:default}
+.marcador{font-family:var(--f-display);font-weight:750;font-size:1.05rem}
+
+/* Niño */
+.nino{border:2px dashed var(--verde);border-radius:var(--radius);padding:18px;display:grid;gap:8px;max-width:72ch}
+.nino h3{font-size:1.05rem;font-weight:800;color:var(--verde)}
+
+/* Referencias */
+.refs{display:grid;gap:10px;padding:0;margin:0;list-style:none;max-width:78ch}
+.refs li{padding-left:2em;text-indent:-2em;font-size:.93rem}
+.refs i{font-style:italic}
+.libros{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.libro{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:6px;align-content:start}
+.libro h3{font-size:1rem;font-weight:780}
+.libro p{font-size:.9rem;color:var(--muted)}
+.libro .tema{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--verde)}
+
+.foot{padding-block:28px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+.next{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px}
+.next a{font-family:var(--f-display);font-weight:700;text-decoration:none}
+
+@media (max-width:560px){
+  .brand{display:none}
+  .timeline::before{left:52px}
+  .hito{grid-template-columns:42px 1fr;gap:20px}
+  .hito::after{left:47px}
+  .hito .anio{font-size:.78rem}
+  .bar-row{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">Lentes <span>de género</span></a>
+    <nav class="tabs" aria-label="Temas">
+      <a href="#inicio" data-nav="inicio">Inicio</a>
+      <a href="#feminismo" data-nav="feminismo">1 · Feminismo</a>
+      <a href="#masculinidades" data-nav="masculinidades">2 · Masculinidades</a>
+      <a href="#identidad" data-nav="identidad">3 · Identidad de género</a>
+      <a href="#sexualidad" data-nav="sexualidad">4 · Erotismo y sexualidad</a>
+      <a href="#fuentes" data-nav="fuentes">Fuentes</a>
+    </nav>
+    <button class="tool" id="btnProyector" aria-pressed="false" title="Aumenta el tamaño del texto para proyectar">Modo proyector</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ INICIO ============ -->
+<section data-view="inicio">
+  <div class="wrap hero">
+    <div class="lens" aria-hidden="true"><i></i><i></i></div>
+    <p class="label">Material de apoyo a la docencia · Perspectiva de género</p>
+    <h1>Lentes <em>de género</em></h1>
+    <p>La perspectiva de género funciona como unos lentes: no cambia lo que hay en el mundo, cambia lo que alcanzamos a ver de él. Marta Lamas la describe como la mirada capaz de distinguir el origen cultural de desigualdades que solemos dar por naturales (Lamas, 1996). Esta página reúne cuatro temas para trabajarlos en clase, con actividades, datos de México y fuentes académicas.</p>
+    <div class="temas">
+      <a class="tema-card" href="#feminismo"><span class="label">Tema 1</span><h3>¿Qué es realmente el feminismo?</h3><p>Definiciones, mitos frecuentes y la historia del feminismo en México, de las <i>Violetas del Anáhuac</i> a hoy.</p><span class="go">Abrir tema →</span></a>
+      <a class="tema-card" href="#masculinidades"><span class="label">Tema 2</span><h3>Las masculinidades</h3><p>Enfoques de estudio y cómo los mandatos de la masculinidad hegemónica afectan la salud.</p><span class="go">Abrir tema →</span></a>
+      <a class="tema-card" href="#identidad"><span class="label">Tema 3</span><h3>La identidad de género</h3><p>Sexo asignado, identidad, expresión y orientación: cuatro dimensiones que no son lo mismo.</p><span class="go">Abrir tema →</span></a>
+      <a class="tema-card" href="#sexualidad"><span class="label">Tema 4</span><h3>Erotismo y sexualidad</h3><p>El modelo de los cuatro holones de Eusebio Rubio y el erotismo como dimensión humana.</p><span class="go">Abrir tema →</span></a>
+    </div>
+  </div>
+  <div class="band tint">
+    <div class="wrap">
+      <h2>Cómo usar esta página en clase</h2>
+      <div class="uso">
+        <div><h3>Cada tema sigue una sesión</h3><p>Abre con una pregunta detonadora, sigue con conceptos y una actividad, presenta datos y cierra con un cuestionario breve.</p></div>
+        <div><h3>Proyéctala</h3><p>El botón <b>Modo proyector</b> agranda el texto. Las tarjetas y los hitos se abren con un clic para revelar la información poco a poco.</p></div>
+        <div><h3>O compártela</h3><p>Funciona en celular, tablet y computadora. Cada tema tiene su propio enlace, así que se puede mandar solo el que toca.</p></div>
+        <div><h3>No guarda datos</h3><p>Las respuestas de las actividades no se registran en ningún lado. Se borran al recargar la página.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEMA 1: FEMINISMO ============ -->
+<section data-view="feminismo" hidden>
+  <div class="tema-head">
+    <div class="wrap">
+      <span class="label">Tema 1</span>
+      <h1>¿Qué es realmente el feminismo?</h1>
+      <p class="sub">Es un movimiento político y una tradición de pensamiento crítico, con más de dos siglos de historia. Se dice "feminismos", en plural, porque dentro de él hay corrientes distintas que discuten entre sí.</p>
+      <div class="detonadora"><span class="label">Pregunta detonadora</span><p>Si tuvieras que definir el feminismo en una sola frase, ¿qué dirías? Escríbela antes de seguir y compárala al final de la sesión.</p></div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Una definición con fundamento histórico</h2>
+      <p class="intro">La historiadora Karen Offen revisó cómo se usó la palabra "feminismo" en Europa y Estados Unidos desde el siglo XIX. Su propuesta es definirlo a partir de lo que hicieron y pensaron las personas, no desde una sola corriente.</p>
+      <div class="two">
+        <div class="panel">
+          <span class="label">Offen (1988/1991)</span>
+          <h3>Tres criterios para reconocer una postura feminista</h3>
+          <ul>
+            <li>Reconoce como válidas las interpretaciones que las propias mujeres hacen de su experiencia y sus necesidades.</li>
+            <li>Muestra inconformidad ante la injusticia institucionalizada de los hombres como grupo hacia las mujeres como grupo.</li>
+            <li>Busca eliminar esa injusticia cuestionando el poder, la fuerza o la autoridad que la sostienen.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <span class="label">Dos tradiciones según Offen</span>
+          <h3>Relacional e individualista</h3>
+          <p><b>Feminismo relacional:</b> reclama derechos a partir de la contribución distintiva de las mujeres a la sociedad, por ejemplo la maternidad. Predominó en Europa continental durante el siglo XIX.</p>
+          <p><b>Feminismo individualista:</b> reclama derechos porque cada mujer es un individuo autónomo, igual que cualquier hombre. Se centra en la libertad personal.</p>
+          <p>Offen sostiene que ambas tradiciones forman parte de la historia del feminismo y que reducirlo a una sola empobrece su comprensión.</p>
+        </div>
+      </div>
+      <div class="nota"><strong>Dato:</strong> según Offen, la palabra "feminista" se popularizó en Francia en la década de 1890, impulsada por la sufragista Hubertine Auclert, que la usaba desde 1882. La atribución a Charles Fourier, común en manuales, no tiene sustento documental.</div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Mito o realidad</h2>
+      <p class="intro">Lee cada enunciado en voz alta y pide al grupo que vote antes de revelar la respuesta.</p>
+      <div class="mitos" id="mitosFem"></div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Las olas del feminismo, en breve</h2>
+      <p class="intro">La metáfora de las "olas" ordena la historia en periodos de mayor movilización. Es útil para enseñar, pero tiene límites: viene de la historia europea y estadounidense y deja fuera procesos de América Latina. Úsala como mapa general, no como cronología exacta.</p>
+      <details class="acc"><summary>Antecedentes: la querella de las mujeres (siglos XV–XVII)</summary><div class="body"><p>Debate letrado sobre la naturaleza y el valor de las mujeres. Christine de Pizan escribió <i>La ciudad de las damas</i> (1405). En la Nueva España, Sor Juana Inés de la Cruz defendió el derecho de las mujeres al saber en la <i>Respuesta a Sor Filotea</i> (1691).</p></div></details>
+      <details class="acc"><summary>Primera ola: Ilustración y sufragismo (finales del s. XVIII – principios del s. XX)</summary><div class="body"><p>Olympe de Gouges publicó la <i>Declaración de los derechos de la mujer y de la ciudadana</i> (1791). Mary Wollstonecraft escribió <i>Vindicación de los derechos de la mujer</i> (1792). En 1848, la Declaración de Seneca Falls inició el movimiento sufragista en Estados Unidos. Las demandas centrales fueron educación, derechos civiles y voto.</p></div></details>
+      <details class="acc"><summary>Segunda ola: "lo personal es político" (décadas de 1960–1980)</summary><div class="body"><p>Simone de Beauvoir ya había planteado en <i>El segundo sexo</i> (1949) que la condición de mujer es una construcción social. Betty Friedan, Kate Millett y el feminismo radical llevaron al debate público la sexualidad, el cuerpo, el trabajo doméstico y la violencia. En México corresponde a la "nueva ola" de los años setenta (Lau Jaiven, 1987).</p></div></details>
+      <details class="acc"><summary>Tercera ola: diversidad e interseccionalidad (décadas de 1990–2000)</summary><div class="body"><p>Se cuestiona la idea de una "mujer universal". Kimberlé Crenshaw propuso el concepto de interseccionalidad (1989) para analizar cómo se cruzan género, raza y clase. Aparecen con fuerza los feminismos negros, chicanos, indígenas y comunitarios, y la teoría queer.</p></div></details>
+      <details class="acc"><summary>¿Cuarta ola? Redes y movilización masiva (década de 2010 – hoy)</summary><div class="body"><p>Movimientos como Ni Una Menos (Argentina, 2015) y #MeToo (2017) usan redes digitales para denunciar la violencia. En la academia sigue en debate si constituye una ola nueva o una continuación de la tercera.</p></div></details>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Historia del feminismo en México</h2>
+      <p class="intro">Toca cada hito para ver el detalle. Puedes filtrar por periodo y avanzar con el grupo.</p>
+      <div class="filtros" id="filtrosMx" role="group" aria-label="Filtrar por periodo">
+        <button class="chip" aria-pressed="true" data-f="todo">Todo</button>
+        <button class="chip" aria-pressed="false" data-f="porfiriato">1880–1916</button>
+        <button class="chip" aria-pressed="false" data-f="sufragio">1917–1955</button>
+        <button class="chip" aria-pressed="false" data-f="nueva">1970–2007</button>
+        <button class="chip" aria-pressed="false" data-f="hoy">2019–hoy</button>
+      </div>
+      <ol class="timeline" id="timelineMx"></ol>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>¿Por qué sigue siendo necesario?</h2>
+      <p class="intro">Datos de la Encuesta Nacional sobre la Dinámica de las Relaciones en los Hogares (ENDIREH) 2021, del INEGI, sobre mujeres de 15 años y más.</p>
+      <div class="stats">
+        <div class="stat"><b>70.1 %</b><span>ha vivido al menos una situación de violencia a lo largo de su vida.</span><small>INEGI, 2022</small></div>
+        <div class="stat"><b>32.3 %</b><span>de quienes asistieron a la escuela vivió violencia durante su vida escolar.</span><small>INEGI, 2022</small></div>
+        <div class="stat"><b>20.2 %</b><span>vivió violencia en el ámbito escolar en los últimos 12 meses (oct. 2020 – oct. 2021).</span><small>INEGI, 2022</small></div>
+      </div>
+      <div class="nota">En los 12 meses previos a la encuesta, los principales agresores en la escuela fueron compañeros (46.2 %) y maestros (16.6 %). Para una clase de pedagogía, este dato muestra que la escuela también reproduce la violencia, además de tener la tarea de prevenirla.</div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <div class="sesion">
+        <span class="label">Para la sesión · 20 minutos</span>
+        <h3>Dinámica: la línea del tiempo viva</h3>
+        <ol>
+          <li>Forma equipos y asigna a cada uno un periodo de la línea del tiempo.</li>
+          <li>Cada equipo elige el hito que considera más importante y prepara una explicación de un minuto: qué pasó, quién lo impulsó y qué cambió.</li>
+          <li>En plenaria, ordenen los hitos y discutan: ¿qué demandas se repiten a lo largo de 140 años? ¿Cuáles siguen pendientes?</li>
+        </ol>
+        <div class="timer" data-min="20"><output>20:00</output><button class="btn" data-act="start">Iniciar</button><button class="btn ghost" data-act="reset">Reiniciar</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Cuestionario de cierre</h2>
+      <div class="quiz" data-quiz="feminismo"></div>
+      <div class="nino">
+        <h3>Así se lo explicaría a un niño de primaria</h3>
+        <p>"Hace mucho tiempo, a las niñas no las dejaban ir a la escuela ni a las mujeres votar para elegir a quien gobierna. El feminismo es el grupo de personas que dijo: 'eso no es justo, las niñas y los niños deben tener los mismos derechos'. Gracias a eso, hoy tu mamá puede votar y tú y tus compañeras pueden estudiar lo que quieran."</p>
+      </div>
+      <div class="next"><a href="#inicio">← Inicio</a><a href="#masculinidades">Tema 2: Masculinidades →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEMA 2: MASCULINIDADES ============ -->
+<section data-view="masculinidades" hidden>
+  <div class="tema-head">
+    <div class="wrap">
+      <span class="label">Tema 2</span>
+      <h1>Las masculinidades</h1>
+      <p class="sub">Ser hombre también se aprende. Los estudios de masculinidades analizan cómo se construye esa identidad y qué costos tiene, para las mujeres, para otros hombres y para los propios hombres.</p>
+      <div class="detonadora"><span class="label">Pregunta detonadora</span><p>¿Qué frases escuchaste de niño o de niña sobre "cómo debe ser un hombre"? ¿Quién las decía?</p></div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Conceptos clave</h2>
+      <p class="intro">Toca cada tarjeta para ver la definición.</p>
+      <div class="flips" data-flips="masc"></div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Los enfoques de la masculinidad (Montesinos, 2002)</h2>
+      <p class="intro">Rafael Montesinos, sociólogo de la UAM, ordena cómo distintas disciplinas han estudiado a los hombres. Su tesis central es que la masculinidad es una construcción social, no un mandato biológico, y que "no se expresa de manera universal" (Montesinos, 2002, p. 77).</p>
+      <details class="acc" open><summary>Estudios de la mujer y de género</summary><div class="body"><p>Son el punto de partida. Al mostrar que los roles asignados sostienen un orden social basado en la diferencia sexual, hacen posible preguntarse también por la identidad masculina.</p></div></details>
+      <details class="acc"><summary>Feminismo de la igualdad y feminismo de la diferencia</summary><div class="body"><p>El primero revela la subordinación de las mujeres y busca la igualdad jurídica, laboral y social. El segundo revaloriza lo femenino como estrategia política propia, y no como "lo otro" de lo masculino. Ambos obligan a repensar el lugar de los hombres.</p></div></details>
+      <details class="acc"><summary>Historia</summary><div class="body"><p>Recupera momentos anteriores de "crisis" de la masculinidad. Muestra que el modelo de hombre ha cambiado con las épocas y que la crisis actual no es la primera.</p></div></details>
+      <details class="acc"><summary>Antropología social</summary><div class="body"><p>Analiza cómo cada género participa en la reproducción de las relaciones sociales y de las estructuras de poder y simbólicas, a partir de estudios comparativos entre culturas.</p></div></details>
+      <details class="acc"><summary>Psicología social</summary><div class="body"><p>Estudia la estructura subjetiva desde la que los varones asumen su masculinidad, y los efectos negativos del modelo hegemónico en las relaciones de poder.</p></div></details>
+      <details class="acc"><summary>Sociología</summary><div class="body"><p>Montesinos retoma a Agnes Heller (la cultura transforma la identidad), Daniel Bell (las prácticas sociales cambian más lento que la economía y la política) y Michael Kaufman (la necesidad de construir masculinidades separadas de los referentes tradicionales).</p></div></details>
+      <div class="nota"><strong>La crisis de la masculinidad.</strong> Para Montesinos, los cambios económicos y culturales del mundo moderno, junto con el feminismo, erosionan el papel del hombre como proveedor exclusivo. Esto produce un "instante de desconcierto, de dolor, de desencanto" (Montesinos, 2002, p. 260), pero también abre la posibilidad de construir masculinidades más equitativas.</div>
+      <p class="chart-src">Paráfrasis y páginas tomadas de la reseña de Hernández Rodríguez (2004). Conviene contrastarlas con tu ejemplar del capítulo.</p>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Mandatos de masculinidad y salud</h2>
+      <p class="intro">Benno de Keijzer, médico e investigador mexicano, propone ver al varón como "factor de riesgo" en tres direcciones, a partir de la "tríada de la violencia" de Kaufman. Marca los mandatos que el grupo reconoce en su entorno y observa a qué tipo de riesgo se asocian.</p>
+      <div class="mandatos" id="mandatos"></div>
+      <div class="triada" id="triada">
+        <div class="vertice" data-v="mujeres"><h4>Riesgo hacia mujeres, niñas y niños</h4><span class="n">0 mandatos marcados</span><ul><li>Violencia en la pareja y la familia</li><li>Paternidad ausente</li><li>Decisiones reproductivas impuestas</li></ul></div>
+        <div class="vertice" data-v="hombres"><h4>Riesgo hacia otros hombres</h4><span class="n">0 mandatos marcados</span><ul><li>Homicidios y riñas</li><li>Accidentes</li><li>Lesiones por competencia</li></ul></div>
+        <div class="vertice" data-v="si"><h4>Riesgo hacia sí mismo</h4><span class="n">0 mandatos marcados</span><ul><li>Suicidio</li><li>Alcoholismo y otras adicciones</li><li>Descuido del cuerpo y de la salud</li></ul></div>
+      </div>
+      <blockquote><p>"Los hombres, en general, no hablan de sus problemas de salud."</p><footer>Valdés y Olavarría (1998), citados en de Keijzer (2003)</footer></blockquote>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Lo que dicen los datos en México</h2>
+      <p class="intro">Proporción de hombres entre las víctimas de muertes violentas y diferencia en esperanza de vida.</p>
+      <div class="bars" role="img" aria-label="Hombres representan 87.8 por ciento de víctimas de homicidio en 2024 y 81.1 por ciento de suicidios en 2023">
+        <div class="bar-row"><span class="bl">Víctimas de homicidio que fueron hombres (2024)</span><div class="bar-track"><div class="bar-fill" style="width:87.8%"></div><span class="bar-val">87.8 %</span></div></div>
+        <div class="bar-row"><span class="bl">Suicidios cometidos por hombres (2023)</span><div class="bar-track"><div class="bar-fill" style="width:81.1%"></div><span class="bar-val">81.1 %</span></div></div>
+      </div>
+      <p class="chart-src">Escala 0–100 %. Fuente: INEGI (2024, 2025), cifras preliminares.</p>
+      <div class="bars" role="img" aria-label="Esperanza de vida 2025: mujeres 79 años, hombres 72.6 años">
+        <div class="bar-row"><span class="bl">Esperanza de vida: mujeres (2025)</span><div class="bar-track"><div class="bar-fill v" style="width:92.9%"></div><span class="bar-val">79.0 años</span></div></div>
+        <div class="bar-row"><span class="bl">Esperanza de vida: hombres (2025)</span><div class="bar-track"><div class="bar-fill" style="width:85.4%"></div><span class="bar-val">72.6 años</span></div></div>
+      </div>
+      <p class="chart-src">Escala 0–85 años. Fuente: INEGI, retomado por N+ (2025).</p>
+      <div class="stats">
+        <div class="stat"><b>46.0</b><span>homicidios por cada 100 mil hombres, frente a 5.6 por cada 100 mil mujeres (2024).</span><small>INEGI, 2025</small></div>
+        <div class="stat"><b>11.4</b><span>suicidios por cada 100 mil hombres, frente a 2.5 por cada 100 mil mujeres (2023).</span><small>INEGI, 2024</small></div>
+      </div>
+      <div class="nota alerta"><strong>Cuidado con la interpretación.</strong> Estos datos no prueban que la masculinidad sea la única causa: también influyen la pobreza, el crimen organizado y el acceso a servicios de salud. Lo que muestran es un patrón consistente con lo que describen los estudios de género sobre riesgo, violencia y poca búsqueda de ayuda.</div>
+      <div class="nota"><strong>Si el tema toca a alguien del grupo:</strong> la Línea de la Vida de la Secretaría de Salud atiende las 24 horas en el <b>800 911 2000</b>.</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>¿"Masculinidad tóxica"? Una precisión conceptual</h2>
+      <div class="two">
+        <div class="panel"><h3>El término popular</h3><p>"Masculinidad tóxica" se difundió en medios y redes para nombrar conductas masculinas dañinas. Es útil para abrir la conversación, pero tiene un problema: puede sugerir que el problema está en hombres "malos" individuales y no en un sistema de normas que se aprende.</p></div>
+        <div class="panel"><h3>Lo que usa la academia</h3><p>Los estudios de género prefieren hablar de <b>masculinidad hegemónica</b> (Connell) o de <b>mandatos de masculinidad</b>. Las guías de la American Psychological Association (2018) hablan de "ideología de la masculinidad tradicional" y señalan su relación con problemas de salud física y mental.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <div class="sesion">
+        <span class="label">Para la sesión · 15 minutos</span>
+        <h3>Dinámica: la caja de la masculinidad</h3>
+        <ol>
+          <li>Dibuja una caja en el pizarrón. Dentro, el grupo escribe lo que se espera de un hombre "de verdad". Fuera, lo que se castiga si un hombre lo hace.</li>
+          <li>Pregunta: ¿qué pasa con quien sale de la caja? ¿Qué palabras se usan para nombrarlo?</li>
+          <li>Relaciona cada mandato con uno de los tres vértices de la tríada del riesgo.</li>
+        </ol>
+        <div class="timer" data-min="15"><output>15:00</output><button class="btn" data-act="start">Iniciar</button><button class="btn ghost" data-act="reset">Reiniciar</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Cuestionario de cierre</h2>
+      <div class="quiz" data-quiz="masculinidades"></div>
+      <div class="nino">
+        <h3>Así se lo explicaría a un niño de primaria</h3>
+        <p>"A veces a los niños les dicen 'los hombres no lloran' o 'aguántate'. Pero llorar cuando estás triste o decir que te duele algo es normal y te ayuda a sentirte mejor. Ser niño no significa ser rudo todo el tiempo. También puedes ser amable, pedir ayuda y cuidar a los demás."</p>
+      </div>
+      <div class="next"><a href="#feminismo">← Tema 1: Feminismo</a><a href="#identidad">Tema 3: Identidad de género →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEMA 3: IDENTIDAD ============ -->
+<section data-view="identidad" hidden>
+  <div class="tema-head">
+    <div class="wrap">
+      <span class="label">Tema 3</span>
+      <h1>La identidad de género</h1>
+      <p class="sub">Es la vivencia interna de cada persona sobre su propio género. Para entenderla hay que separar cuatro dimensiones que en el habla cotidiana se confunden.</p>
+      <div class="detonadora"><span class="label">Pregunta detonadora</span><p>¿Cómo sabes que eres hombre, mujer o ninguna de las dos? ¿Te lo dijeron, lo sentiste o ambas cosas?</p></div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Cuatro dimensiones distintas</h2>
+      <p class="intro">Definiciones del glosario de la Corte Interamericana de Derechos Humanos en la Opinión Consultiva OC-24/17 (párr. 32), vinculante para México como Estado parte de la Convención Americana.</p>
+      <div class="dims">
+        <div class="dim"><span class="tag">El cuerpo según otros</span><h3>Sexo asignado al nacer</h3><p>Se asigna "con base en la percepción que otros tienen sobre los genitales". Incluye a las personas intersexuales, cuya anatomía no encaja en los estándares típicos.</p></div>
+        <div class="dim"><span class="tag">Quién soy</span><h3>Identidad de género</h3><blockquote><p>"La vivencia interna e individual del género tal como cada persona la siente, la cual podría corresponder o no con el sexo asignado al momento del nacimiento."</p></blockquote></div>
+        <div class="dim"><span class="tag">Cómo me muestro</span><h3>Expresión de género</h3><p>La "manifestación externa del género" a través del aspecto, la ropa, el peinado, la voz o el comportamiento. Puede o no corresponder con la identidad.</p></div>
+        <div class="dim"><span class="tag">Quién me atrae</span><h3>Orientación sexual</h3><p>La "atracción emocional, afectiva y sexual" por personas de un género diferente, del mismo género o de más de un género.</p></div>
+      </div>
+      <div class="nota">Cuando la identidad coincide con el sexo asignado se habla de persona <b>cisgénero</b>. Cuando no coincide, de persona <b>trans</b>. La Corte IDH precisa que las personas trans construyen su identidad "independientemente de un tratamiento médico o intervenciones quirúrgicas".</div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Actividad: ¿de qué dimensión hablamos?</h2>
+      <p class="intro">Clasifica cada enunciado. El objetivo es practicar la distinción, no etiquetar a nadie.</p>
+      <div class="clasif" id="clasif"></div>
+      <p class="score" id="clasifScore"></p>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Tres miradas teóricas</h2>
+      <div class="two">
+        <div class="panel"><span class="label">1949</span><h3>Simone de Beauvoir</h3><blockquote><p>"No se nace mujer: se llega a serlo."</p><footer>Beauvoir, <i>El segundo sexo</i></footer></blockquote><p>Lo femenino no es un destino biológico: es una posición social que se aprende y se impone.</p></div>
+        <div class="panel"><span class="label">1986 · 1996</span><h3>Joan W. Scott y Marta Lamas</h3><p>Scott define el género como un elemento constitutivo de las relaciones sociales basadas en las diferencias percibidas entre los sexos, y como una forma primaria de relaciones de poder. Lamas lo retoma en México para distinguir lo biológico de la simbolización cultural de la diferencia sexual.</p></div>
+        <div class="panel"><span class="label">1990</span><h3>Judith Butler</h3><p>En <i>El género en disputa</i> propone que el género es <b>performativo</b>: no es una esencia que se expresa, sino algo que se produce al repetir actos, gestos y normas. Esto conecta con la teoría queer.</p></div>
+      </div>
+      <div class="nota alerta"><strong>Debate abierto.</strong> Estas autoras no dicen lo mismo. Lamas, por ejemplo, ha discutido con algunas lecturas de Butler sobre el peso del cuerpo sexuado. En clase conviene presentar el desacuerdo como parte del conocimiento, no esconderlo.</div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>En México</h2>
+      <div class="stats">
+        <div class="stat"><b>5.0 M</b><span>personas de 15 años y más se identifican como LGBTI+, es decir, 5.1 % de esa población.</span><small>ENDISEG 2021, INEGI</small></div>
+        <div class="stat"><b>28.7 %</b><span>de la población LGBTI+ de 15 años y más reportó ideación o intento suicida.</span><small>INEGI, 2024</small></div>
+      </div>
+      <div class="nota">La Ciudad de México permite desde 2015 el reconocimiento de la identidad de género en el acta de nacimiento mediante un trámite administrativo, sin peritajes médicos. Otras entidades han seguido ese camino, y la Corte IDH (2017) estableció que este procedimiento debe ser accesible y no patologizante.</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <div class="sesion">
+        <span class="label">Para la sesión · 15 minutos</span>
+        <h3>Dinámica: el aula que nombra</h3>
+        <ol>
+          <li>En parejas, revisen un reglamento escolar, un formato de inscripción o una lista de asistencia. ¿Qué supone sobre el género de las personas?</li>
+          <li>Propongan un cambio concreto para que ese documento no excluya a estudiantes trans o no binarios. Por ejemplo, preguntar el nombre con el que la persona quiere ser llamada.</li>
+          <li>Compartan en plenaria qué cambios son posibles sin modificar ninguna ley.</li>
+        </ol>
+        <div class="timer" data-min="15"><output>15:00</output><button class="btn" data-act="start">Iniciar</button><button class="btn ghost" data-act="reset">Reiniciar</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Cuestionario de cierre</h2>
+      <div class="quiz" data-quiz="identidad"></div>
+      <div class="nino">
+        <h3>Así se lo explicaría a un niño de primaria</h3>
+        <p>"Cada persona sabe por dentro quién es. Casi siempre los papás y los doctores aciertan cuando dicen 'es niña' o 'es niño', pero a veces alguien siente por dentro algo diferente, y eso también está bien. Lo que te gusta ponerte, como el color de tu ropa o el largo de tu pelo, es otra cosa distinta, y no decide quién eres."</p>
+      </div>
+      <div class="next"><a href="#masculinidades">← Tema 2: Masculinidades</a><a href="#sexualidad">Tema 4: Erotismo y sexualidad →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEMA 4: SEXUALIDAD ============ -->
+<section data-view="sexualidad" hidden>
+  <div class="tema-head">
+    <div class="wrap">
+      <span class="label">Tema 4</span>
+      <h1>Erotismo y sexualidad</h1>
+      <p class="sub">La sexualidad no se reduce a la reproducción ni a las relaciones sexuales. Es una dimensión humana que incluye el cuerpo, la identidad, los afectos y el placer, y que se construye en la cultura.</p>
+      <div class="detonadora"><span class="label">Pregunta detonadora</span><p>Cuando en tu escuela se habló de sexualidad, ¿de qué se habló y de qué no? ¿Quién decidió eso?</p></div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>¿Qué es la sexualidad?</h2>
+      <blockquote><p>"La sexualidad es un aspecto central del ser humano, presente a lo largo de su vida. Abarca al sexo, las identidades y los papeles de género, el erotismo, el placer, la intimidad, la reproducción y la orientación sexual. Se vivencia y se expresa a través de pensamientos, fantasías, deseos, creencias, actitudes, valores, conductas, prácticas, papeles y relaciones interpersonales."</p><footer>Organización Mundial de la Salud (2006), definición de trabajo, traducción de uso común</footer></blockquote>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Los cuatro holones de la sexualidad</h2>
+      <p class="intro">El médico y sexólogo mexicano Eusebio Rubio Aurioles propuso entender la sexualidad como un sistema de cuatro partes o "holones": cada una es un todo en sí misma y a la vez parte de un sistema mayor. Este modelo sustenta buena parte de la educación sexual en México. Toca un holón para ver su definición.</p>
+      <div class="holones">
+        <svg class="holo-svg" viewBox="0 0 400 400" role="img" aria-label="Diagrama de cuatro círculos superpuestos: reproductividad, género, erotismo y vinculación afectiva">
+          <circle data-h="0" cx="150" cy="150" r="105" style="fill:var(--morado);stroke:var(--morado)"></circle>
+          <circle data-h="1" cx="250" cy="150" r="105" style="fill:var(--verde);stroke:var(--verde)"></circle>
+          <circle data-h="2" cx="150" cy="250" r="105" style="fill:var(--verde);stroke:var(--verde)"></circle>
+          <circle data-h="3" cx="250" cy="250" r="105" style="fill:var(--morado);stroke:var(--morado)"></circle>
+          <text x="58" y="112">Reproduc-</text><text x="58" y="130">tividad</text>
+          <text x="275" y="120">Género</text>
+          <text x="70" y="290">Erotismo</text>
+          <text x="256" y="282">Vinculación</text><text x="262" y="300">afectiva</text>
+        </svg>
+        <div>
+          <div class="holo-btns" id="holoBtns" role="group" aria-label="Holones"></div>
+          <div class="panel" id="holoPanel" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <h2>El erotismo como dimensión humana</h2>
+      <p class="intro">Desde la filosofía y la literatura, el erotismo se distingue de la sexualidad biológica: es lo que la cultura y la imaginación hacen con el deseo.</p>
+      <div class="two">
+        <blockquote><p>"El erotismo es sexualidad transfigurada: metáfora."</p><footer>Octavio Paz, <i>La llama doble</i> (1993)</footer></blockquote>
+        <blockquote><p>"Del erotismo es posible decir que es la aprobación de la vida hasta en la muerte."</p><footer>Georges Bataille, <i>El erotismo</i> (1957)</footer></blockquote>
+      </div>
+      <div class="two">
+        <div class="panel"><h3>Sexualidad</h3><p>La base biológica y psicosocial: el cuerpo sexuado, la reproducción, la respuesta sexual. Es compartida en parte con otras especies.</p></div>
+        <div class="panel"><h3>Erotismo</h3><p>La dimensión simbólica y placentera del deseo: rituales, imaginación, arte, lenguaje. Para Paz es exclusivamente humano porque separa el placer de la reproducción y lo convierte en representación.</p></div>
+      </div>
+      <div class="nota"><strong>Conexión con el género.</strong> Lo que una sociedad permite desear y a quién se le permite desear también es una norma de género. Históricamente, el placer de los hombres se ha considerado natural y el de las mujeres, peligroso o inexistente. Esto conecta el tema 4 con el 1 y el 2.</div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Derechos sexuales y educación</h2>
+      <p class="intro">La educación integral en sexualidad (EIS) es un enfoque respaldado por la UNESCO que va más allá de la prevención de embarazos e infecciones: incluye relaciones, consentimiento, diversidad, derechos y bienestar.</p>
+      <div class="mitos" id="mitosSex"></div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap stack">
+      <div class="sesion">
+        <span class="label">Para la sesión · 20 minutos</span>
+        <h3>Dinámica: un caso por holón</h3>
+        <ol>
+          <li>Divide al grupo en cuatro equipos, uno por holón.</li>
+          <li>Cada equipo piensa una situación escolar en la que su holón aparece. Por ejemplo, para "vinculación afectiva": una ruptura entre estudiantes que afecta el rendimiento.</li>
+          <li>Expliquen cómo intervendría un docente con perspectiva de género, y qué debería evitar.</li>
+        </ol>
+        <div class="timer" data-min="20"><output>20:00</output><button class="btn" data-act="start">Iniciar</button><button class="btn ghost" data-act="reset">Reiniciar</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Cuestionario de cierre</h2>
+      <div class="quiz" data-quiz="sexualidad"></div>
+      <div class="nino">
+        <h3>Así se lo explicaría a un niño de primaria</h3>
+        <p>"Tu cuerpo es tuyo y tiene partes con nombres, como cualquier otra parte. Aprender sobre él te ayuda a cuidarlo. Además, las personas sentimos cariño, amistad y amor por otras, y eso también es parte de crecer. Nadie puede tocarte si tú no quieres, y si algo te hace sentir incómodo, puedes decirlo a un adulto de confianza."</p>
+      </div>
+      <div class="next"><a href="#identidad">← Tema 3: Identidad de género</a><a href="#fuentes">Fuentes y lecturas →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FUENTES ============ -->
+<section data-view="fuentes" hidden>
+  <div class="tema-head">
+    <div class="wrap">
+      <span class="label">Bibliografía</span>
+      <h1>Fuentes y lecturas</h1>
+      <p class="sub">Referencias en formato APA 7. Las tres primeras son las lecturas base del curso.</p>
+    </div>
+  </div>
+  <div class="band">
+    <div class="wrap stack">
+      <h2>Libros recomendados para profundizar</h2>
+      <div class="libros">
+        <div class="libro"><span class="tema">Tema 1</span><h3>Un fantasma recorre el siglo</h3><p>Ana Lau Jaiven y Gisela Espinosa (coords.), 2011. La historia más completa de las luchas feministas en México entre 1910 y 2010.</p></div>
+        <div class="libro"><span class="tema">Tema 1</span><h3>Feminismos (en <i>10 palabras clave sobre mujer</i>)</h3><p>Ana de Miguel, 1995. Síntesis clásica y accesible de la historia del feminismo, del premoderno al contemporáneo.</p></div>
+        <div class="libro"><span class="tema">Tema 2</span><h3>Masculinidades</h3><p>R. W. Connell, 2003 (ed. UNAM). Obra fundacional del concepto de masculinidad hegemónica.</p></div>
+        <div class="libro"><span class="tema">Tema 2</span><h3>Hasta donde el cuerpo aguante</h3><p>Benno de Keijzer, 2003. Capítulo breve y claro sobre género y salud masculina en América Latina.</p></div>
+        <div class="libro"><span class="tema">Tema 3</span><h3>El género: la construcción cultural de la diferencia sexual</h3><p>Marta Lamas (comp.), 1996. Reúne textos clave, entre ellos el ensayo de Joan W. Scott.</p></div>
+        <div class="libro"><span class="tema">Tema 3</span><h3>El género en disputa</h3><p>Judith Butler, 1990/2007. Lectura exigente pero imprescindible para la noción de performatividad.</p></div>
+        <div class="libro"><span class="tema">Tema 4</span><h3>Antología de la sexualidad humana</h3><p>C. J. Pérez Fernández (comp.), 1998. Incluye el texto de Rubio Aurioles sobre los cuatro holones.</p></div>
+        <div class="libro"><span class="tema">Tema 4</span><h3>La llama doble</h3><p>Octavio Paz, 1993. Ensayo sobre la relación entre sexualidad, erotismo y amor.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="band tint">
+    <div class="wrap stack">
+      <h2>Referencias</h2>
+      <ul class="refs">
+        <li>Instituto Aragonés de la Mujer. (2018). <i>Feminismos. Tres siglos de lucha por la igualdad</i>. Gobierno de Aragón.</li>
+        <li>Montesinos, R. (2002). Los enfoques de la masculinidad. En <i>Las rutas de la masculinidad. Ensayos sobre el cambio cultural y el mundo moderno</i>. Gedisa.</li>
+        <li>Offen, K. (1991). Definir el feminismo: un análisis histórico comparativo. <i>Historia Social</i>, (9), 103–135. (Original publicado en 1988 en <i>Signs</i>, 14(1), 119–157. https://doi.org/10.1086/494494)</li>
+        <li>American Psychological Association, Boys and Men Guidelines Group. (2018). <i>APA guidelines for psychological practice with boys and men</i>. https://www.apa.org/about/policy/boys-men-practice-guidelines.pdf</li>
+        <li>Álvarez-Díaz, J. A. (2007). Sexualidad en parejas con problemas de fertilidad. <i>Gaceta Médica de México</i>, <i>143</i>(1), 65–71.</li>
+        <li>Bataille, G. (2007). <i>El erotismo</i> (A. Vicens y M. P. Sarazin, Trads.). Tusquets. (Obra original publicada en 1957)</li>
+        <li>Beauvoir, S. de. (2005). <i>El segundo sexo</i> (A. Martorell, Trad.). Cátedra. (Obra original publicada en 1949)</li>
+        <li>Butler, J. (2007). <i>El género en disputa. El feminismo y la subversión de la identidad</i> (M. A. Muñoz, Trad.). Paidós. (Obra original publicada en 1990)</li>
+        <li>Connell, R. W. (2003). <i>Masculinidades</i> (I. Vericat, Trad.). PUEG-UNAM. (Obra original publicada en 1995)</li>
+        <li>Corte Interamericana de Derechos Humanos. (2017). <i>Opinión Consultiva OC-24/17: Identidad de género, e igualdad y no discriminación a parejas del mismo sexo</i>. Serie A, núm. 24.</li>
+        <li>de Keijzer, B. (2003). Hasta donde el cuerpo aguante: género, cuerpo y salud masculina. En C. Cáceres, M. Cueto, M. Ramos y S. Vallenas (Coords.), <i>La salud como derecho ciudadano: perspectivas y propuestas desde América Latina</i> (pp. 137–152). Universidad Peruana Cayetano Heredia.</li>
+        <li>de Miguel, A. (1995). Feminismos. En C. Amorós (Dir.), <i>10 palabras clave sobre mujer</i> (pp. 217–255). Verbo Divino.</li>
+        <li>Gobierno de México. (s. f.). <i>Línea del tiempo: las mujeres y la Constitución</i>. https://constitucion1917.gob.mx/sitios/mujeres/timeline/linea_de_tiempo.pdf</li>
+        <li>Hernández Rodríguez, A. (2004). ¿La masculinidad en crisis? [Reseña de <i>Las rutas de la masculinidad</i>, de R. Montesinos]. <i>La Ventana. Revista de Estudios de Género</i>, (19), 261–270. https://www.redalyc.org/articulo.oa?id=88401917</li>
+        <li>Instituto Nacional de Estadística y Geografía. (2022). <i>Encuesta Nacional sobre la Dinámica de las Relaciones en los Hogares (ENDIREH) 2021: Principales resultados</i>. https://www.inegi.org.mx/programas/endireh/2021/</li>
+        <li>Instituto Nacional de Estadística y Geografía. (2024a). <i>Estadísticas a propósito del Día Internacional del Orgullo LGBTI+</i> [Comunicado de prensa núm. 386/24]. https://inegi.org.mx/contenidos/saladeprensa/aproposito/2024/EAP_LGBTI24.pdf</li>
+        <li>Instituto Nacional de Estadística y Geografía. (2024b). <i>Estadísticas a propósito del Día Mundial para la Prevención del Suicidio</i> [Comunicado de prensa]. https://inegi.org.mx/contenidos/saladeprensa/aproposito/2024/EAP_Suicidio24.pdf</li>
+        <li>Instituto Nacional de Estadística y Geografía. (2025). <i>Defunciones por homicidio. Enero a diciembre de 2024 (preliminar)</i> [Comunicado de prensa]. https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2025/edr/DH2024_RR_Ene-dic.pdf</li>
+        <li>Kaufman, M. (1989). <i>Hombres: placer, poder y cambio</i>. CIPAF.</li>
+        <li>Lamas, M. (1996). La perspectiva de género. <i>La Tarea. Revista de Educación y Cultura de la Sección 47 del SNTE</i>, (8).</li>
+        <li>Lamas, M. (Comp.). (1996). <i>El género: la construcción cultural de la diferencia sexual</i>. PUEG-UNAM; Miguel Ángel Porrúa.</li>
+        <li>Lau Jaiven, A. (1987). <i>La nueva ola del feminismo en México</i>. Planeta.</li>
+        <li>Lau Jaiven, A., y Espinosa Damián, G. (Coords.). (2011). <i>Un fantasma recorre el siglo: luchas feministas en México 1910-2010</i>. UAM-Xochimilco; ECOSUR; Itaca.</li>
+        <li>N+. (2025). <i>Esperanza de vida en 2025: ¿cuántos años viven en promedio los mexicanos?</i> https://www.nmas.com.mx/nacional/politica/cual-es-esperanza-vida-mexico-2025-estos-anos-viven-mexicanos-promedio/</li>
+        <li>Paz, O. (1993). <i>La llama doble: amor y erotismo</i>. Seix Barral.</li>
+        <li>Rubio Aurioles, E. (1998). Introducción al estudio de la sexualidad humana. En C. J. Pérez Fernández (Comp.), <i>Antología de la sexualidad humana</i> (Tomo I, 2.ª ed., pp. 17–46). Porrúa; CONAPO.</li>
+        <li>Scott, J. W. (1996). El género: una categoría útil para el análisis histórico. En M. Lamas (Comp.), <i>El género: la construcción cultural de la diferencia sexual</i> (pp. 265–302). PUEG-UNAM; Miguel Ángel Porrúa.</li>
+        <li>World Health Organization. (2006). <i>Defining sexual health: Report of a technical consultation on sexual health, 28–31 January 2002, Geneva</i>. WHO.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot"><div class="wrap">Lentes de género · Material didáctico de apoyo a la docencia · Pedagogía, FES Aragón, UNAM. Los datos estadísticos corresponden a las fuentes citadas.</div></footer>
+
+<script>
+(function(){
+  // ---------- Router ----------
+  const views=[...document.querySelectorAll('[data-view]')];
+  const navs=[...document.querySelectorAll('[data-nav]')];
+  function show(){
+    let id=(location.hash||'#inicio').slice(1);
+    if(!views.some(v=>v.dataset.view===id)) id='inicio';
+    views.forEach(v=>v.hidden=v.dataset.view!==id);
+    navs.forEach(a=>{ if(a.dataset.nav===id){a.setAttribute('aria-current','page'); a.scrollIntoView({block:'nearest',inline:'center'});} else a.removeAttribute('aria-current'); });
+    window.scrollTo(0,0);
+  }
+  addEventListener('hashchange',show); show();
+
+  // ---------- Modo proyector ----------
+  const bp=document.getElementById('btnProyector');
+  function setP(on){document.documentElement.classList.toggle('proyector',on);bp.setAttribute('aria-pressed',on);try{localStorage.setItem('lg-proy',on?'1':'0')}catch(e){}}
+  try{ if(localStorage.getItem('lg-proy')==='1') setP(true);}catch(e){}
+  bp.addEventListener('click',()=>setP(bp.getAttribute('aria-pressed')!=='true'));
+
+  const esc=s=>s;
+
+  // ---------- Mito / realidad ----------
+  function mitos(el,data,labels){
+    data.forEach(d=>{
+      const c=document.createElement('div');c.className='mito';
+      c.innerHTML=`<p class="enunciado">${d.t}</p><div class="btns"><button class="chip" data-a="m">${labels[0]}</button><button class="chip" data-a="r">${labels[1]}</button></div><p class="fb" hidden></p>`;
+      const fb=c.querySelector('.fb');
+      c.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+        c.querySelectorAll('button').forEach(x=>x.classList.remove('ok','no'));
+        const right=b.dataset.a===d.a;
+        b.classList.add(right?'ok':'no');
+        fb.hidden=false;
+        fb.innerHTML=`<b>${d.a==='m'?labels[0]:labels[1]}.</b> ${d.e}`;
+      }));
+      el.appendChild(c);
+    });
+  }
+  mitos(document.getElementById('mitosFem'),[
+    {t:'El feminismo es lo contrario del machismo.',a:'m',e:'El machismo es una ideología de superioridad masculina. El feminismo es una crítica a la subordinación de las mujeres y busca eliminarla. No propone invertir la jerarquía (Offen, 1991).'},
+    {t:'Existe un solo feminismo, con una sola postura.',a:'m',e:'Hay corrientes distintas: relacional e individualista, liberal, radical, socialista, negro, comunitario, entre otras. Por eso se habla de "feminismos".'},
+    {t:'El feminismo nació en el siglo XX.',a:'m',e:'Sus antecedentes modernos están en la Ilustración: Olympe de Gouges (1791) y Mary Wollstonecraft (1792). Antes hubo siglos de "querella de las mujeres".'},
+    {t:'En México, las mujeres votaron por primera vez en una elección federal en 1955.',a:'r',e:'La reforma que reconoció su ciudadanía plena se publicó el 17 de octubre de 1953, y votaron por primera vez en elecciones federales el 3 de julio de 1955.'},
+    {t:'El feminismo solo beneficia a las mujeres.',a:'m',e:'Los estudios de masculinidades muestran que los mandatos de género también dañan la salud y la vida de los hombres. El tema 2 desarrolla este punto.'},
+    {t:'La palabra "feminista" se usó en Francia desde el siglo XIX.',a:'r',e:'Según Offen, Hubertine Auclert la usaba desde 1882, y se difundió en la década de 1890.'}
+  ],['Mito','Realidad']);
+
+  mitos(document.getElementById('mitosSex'),[
+    {t:'Hablar de sexualidad en la escuela adelanta el inicio de la vida sexual.',a:'m',e:'Las revisiones de evidencia de la UNESCO concluyen que la educación integral en sexualidad no adelanta el inicio de la actividad sexual. En varios estudios lo retrasa y aumenta el uso de protección.'},
+    {t:'La sexualidad empieza en la adolescencia.',a:'m',e:'La OMS la define como presente "a lo largo de su vida". En la infancia se expresa como curiosidad, identidad y vínculos afectivos, no como erotismo adulto.'},
+    {t:'La educación sexual debe incluir consentimiento y relaciones sanas.',a:'r',e:'Es uno de los ejes de la educación integral en sexualidad. Conecta con la prevención de la violencia que muestran los datos de la ENDIREH en el tema 1.'},
+    {t:'Sexualidad y reproducción son lo mismo.',a:'m',e:'La reproductividad es solo uno de los cuatro holones de Rubio. El género, el erotismo y los vínculos afectivos existen aunque no haya reproducción.'}
+  ],['Mito','Realidad']);
+
+  // ---------- Línea del tiempo México ----------
+  const hitos=[
+    {y:'1888',e:'porfiriato',t:'Violetas del Anáhuac',d:'Laureana Wright de Kleinhans dirige este semanario escrito por mujeres. Difunde los avances del sufragio femenino en otros países (1888–1889).',s:'Gobierno de México, s. f.'},
+    {y:'1915',e:'porfiriato',t:'Hermila Galindo funda Mujer Moderna',d:'Semanario desde el que defiende el sufragio femenino, la educación laica y la educación sexual. En 1917 pide al Congreso Constituyente el voto para las mujeres.',s:'Gobierno de México, s. f.'},
+    {y:'1916',e:'porfiriato',t:'Congresos Feministas de Yucatán',d:'En Mérida se celebran los primeros congresos feministas del país. El segundo discute "Las mujeres y el voto" y se pronuncia a favor del voto municipal.',s:'Gobierno de México, s. f.'},
+    {y:'1917',e:'sufragio',t:'La Constitución excluye a las mujeres',d:'Durante el Constituyente de Querétaro se mantiene la exclusión de las mujeres de la ciudadanía. Hermila Galindo se postula a diputada como acto de protesta.',s:'Gobierno de México, s. f.'},
+    {y:'1923',e:'sufragio',t:'Primeras diputadas locales',d:'Elvia Carrillo Puerto, Beatriz Peniche y Raquel Dzib Cicero son electas diputadas al Congreso de Yucatán, las primeras del país.',s:'Gobierno de México, s. f.'},
+    {y:'1935',e:'sufragio',t:'Frente Único Pro Derechos de la Mujer',d:'Se funda el FUPDM, que llega a reunir a decenas de miles de mujeres. Sus demandas incluyen el voto y el derecho a ser electas.',s:'Gobierno de México, s. f.'},
+    {y:'1937',e:'sufragio',t:'Refugio García y la huelga de hambre',d:'Gana una diputación por Uruapan, pero el Colegio Electoral no la reconoce. Hace huelga de hambre frente a la residencia presidencial del 15 al 26 de agosto.',s:'Gobierno de México, s. f.'},
+    {y:'1947',e:'sufragio',t:'Voto municipal',d:'Se reforma el artículo 115 constitucional para que las mujeres voten y sean electas en elecciones municipales.',s:'Gobierno de México, s. f.'},
+    {y:'1953',e:'sufragio',t:'Ciudadanía plena',d:'El 17 de octubre se publica la reforma que reconoce a las mujeres el derecho a votar y ser votadas en elecciones federales.',s:'Gobierno de México, s. f.'},
+    {y:'1955',e:'sufragio',t:'Primer voto federal',d:'El 3 de julio las mujeres votan por primera vez en una elección federal.',s:'Gobierno de México, s. f.'},
+    {y:'1971',e:'nueva',t:'La "nueva ola" del feminismo',d:'Surgen grupos como Mujeres en Acción Solidaria. Retoman el lema "lo personal es político" y discuten sexualidad, aborto, trabajo doméstico y violencia.',s:'Lau Jaiven, 1987'},
+    {y:'1974',e:'nueva',t:'Igualdad jurídica en el artículo 4.º',d:'Se reforma la Constitución para establecer que "el varón y la mujer son iguales ante la ley".',s:'DOF, 31 de diciembre de 1974'},
+    {y:'1975',e:'nueva',t:'Conferencia Mundial del Año Internacional de la Mujer',d:'La Ciudad de México es sede de la primera conferencia mundial de la ONU sobre la mujer.',s:'ONU Mujeres'},
+    {y:'1992',e:'nueva',t:'Estudios de género en la UNAM',d:'Se crea el Programa Universitario de Estudios de Género (PUEG), hoy Centro de Investigaciones y Estudios de Género (CIEG).',s:'CIEG-UNAM'},
+    {y:'2007',e:'nueva',t:'Ley General de Acceso de las Mujeres a una Vida Libre de Violencia',d:'Primera ley que define tipos y modalidades de violencia contra las mujeres, incluida la escolar. Un año antes se había publicado la Ley General para la Igualdad entre Mujeres y Hombres (2006).',s:'DOF, 1 de febrero de 2007'},
+    {y:'2019',e:'hoy',t:'Paridad en todo y protestas masivas',d:'Una reforma constitucional obliga a la paridad de género en los tres poderes y órdenes de gobierno. Ese año crecen las protestas contra la violencia, y en la UNAM se multiplican los paros feministas.',s:'Gobierno de México, s. f.'},
+    {y:'2020',e:'hoy',t:'8M y "Un día sin nosotras"',d:'La marcha del 8 de marzo es una de las más grandes de la historia del país. Al día siguiente, el paro nacional del 9M busca mostrar el peso del trabajo de las mujeres.',s:'Hecho público'},
+    {y:'2021',e:'hoy',t:'La SCJN y el aborto',d:'La Suprema Corte declara inconstitucional criminalizar de forma absoluta el aborto (acción de inconstitucionalidad 148/2017).',s:'SCJN, 7 de septiembre de 2021'},
+    {y:'2024',e:'hoy',t:'Primera presidenta de México',d:'Claudia Sheinbaum Pardo asume la presidencia el 1 de octubre, 71 años después del reconocimiento del voto femenino federal.',s:'Hecho público'}
+  ];
+  const tl=document.getElementById('timelineMx');
+  hitos.forEach(h=>{
+    const li=document.createElement('li');li.className='hito';li.dataset.era=h.e;
+    li.innerHTML=`<span class="anio">${h.y}</span><button aria-expanded="false"><h4>${h.t}</h4><span class="det">${h.d}<small>Fuente: ${h.s}</small></span></button>`;
+    const b=li.querySelector('button');b.addEventListener('click',()=>b.setAttribute('aria-expanded',b.getAttribute('aria-expanded')!=='true'));
+    tl.appendChild(li);
+  });
+  document.querySelectorAll('#filtrosMx .chip').forEach(c=>c.addEventListener('click',()=>{
+    document.querySelectorAll('#filtrosMx .chip').forEach(x=>x.setAttribute('aria-pressed',x===c));
+    const f=c.dataset.f;
+    tl.querySelectorAll('.hito').forEach(li=>li.hidden=!(f==='todo'||li.dataset.era===f));
+  }));
+
+  // ---------- Tarjetas que se voltean ----------
+  const flips={
+    masc:[
+      {t:'Masculinidad',d:'Conjunto de prácticas, significados y posiciones asociadas a "ser hombre" en una cultura. Es una construcción social, por eso se habla de masculinidades en plural.',c:'Montesinos, 2002; Connell, 2003'},
+      {t:'Masculinidad hegemónica',d:'El modelo de hombre más valorado en una sociedad, el que legitima la posición dominante de los hombres sobre las mujeres y sobre otros hombres. Pocos lo cumplen, pero todos son medidos con él.',c:'Connell, 2003'},
+      {t:'Masculinidades subordinadas',d:'Formas de ser hombre que el modelo hegemónico desvaloriza, por ejemplo las de hombres homosexuales o las que se consideran "poco hombres".',c:'Connell, 2003'},
+      {t:'Crisis de la masculinidad',d:'Desajuste entre los referentes tradicionales (proveedor, autoridad) y una realidad en la que las mujeres trabajan, estudian y deciden. Produce desconcierto y también posibilidad de cambio.',c:'Montesinos, 2002'},
+      {t:'El varón como factor de riesgo',d:'Propuesta de que ciertas prácticas masculinas aprendidas representan un riesgo para las mujeres y la niñez, para otros hombres y para el propio hombre.',c:'de Keijzer, 1997, 2003'},
+      {t:'Nuevas masculinidades',d:'Prácticas que buscan relaciones más equitativas: corresponsabilidad en los cuidados, expresión emocional, rechazo de la violencia. El término se discute porque "nuevo" no siempre implica menos poder.',c:'Montesinos, 2002'}
+    ]
+  };
+  document.querySelectorAll('[data-flips]').forEach(el=>{
+    flips[el.dataset.flips].forEach(f=>{
+      const b=document.createElement('button');b.className='flip';b.setAttribute('aria-expanded','false');
+      b.innerHTML=`<h3>${f.t}</h3><span class="back">${f.d}<cite>${f.c}</cite></span><span class="hint">Toca para ver</span>`;
+      b.addEventListener('click',()=>b.setAttribute('aria-expanded',b.getAttribute('aria-expanded')!=='true'));
+      el.appendChild(b);
+    });
+  });
+
+  // ---------- Mandatos y tríada ----------
+  const mand=[
+    {t:'"Los hombres no lloran."',v:['si']},
+    {t:'Aguantar el dolor y no ir al médico.',v:['si']},
+    {t:'Demostrar valentía tomando riesgos (manejar rápido, retos).',v:['si','hombres']},
+    {t:'Responder con golpes si te faltan al respeto.',v:['hombres']},
+    {t:'Beber mucho como prueba de hombría.',v:['si','hombres']},
+    {t:'Ser el proveedor y la autoridad de la familia.',v:['mujeres','si']},
+    {t:'Controlar a la pareja: con quién sale, cómo se viste.',v:['mujeres']},
+    {t:'No pedir ayuda ni hablar de lo que sientes.',v:['si']},
+    {t:'Los cuidados de hijas e hijos "no son cosa de hombres".',v:['mujeres']}
+  ];
+  const mEl=document.getElementById('mandatos');
+  const count={mujeres:0,hombres:0,si:0};
+  function refresh(){
+    document.querySelectorAll('#triada .vertice').forEach(v=>{
+      const n=count[v.dataset.v];v.querySelector('.n').textContent=n+(n===1?' mandato marcado':' mandatos marcados');v.classList.toggle('on',n>0);
+    });
+  }
+  mand.forEach(m=>{
+    const b=document.createElement('button');b.className='mandato';b.setAttribute('aria-pressed','false');
+    b.innerHTML=`<span class="box" aria-hidden="true"></span><span>${m.t}</span>`;
+    b.addEventListener('click',()=>{
+      const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);
+      b.querySelector('.box').textContent=on?'✓':'';
+      m.v.forEach(k=>count[k]+=on?1:-1);refresh();
+    });
+    mEl.appendChild(b);
+  });
+
+  // ---------- Clasificador identidad ----------
+  const dimsN=['Sexo asignado','Identidad','Expresión','Orientación'];
+  const items=[
+    {t:'Al nacer, en su certificado anotaron "mujer".',a:0},
+    {t:'Se reconoce a sí mismo como hombre.',a:1},
+    {t:'Usa falda, maquillaje y el cabello largo.',a:2},
+    {t:'Le atraen personas de su mismo género.',a:3},
+    {t:'Se identifica como persona no binaria.',a:1},
+    {t:'Prefiere ropa holgada que suele considerarse "masculina".',a:2},
+    {t:'Nació con características sexuales que no encajan en lo "típico" masculino o femenino.',a:0},
+    {t:'Se enamora de personas de cualquier género.',a:3}
+  ];
+  const cl=document.getElementById('clasif'),sc=document.getElementById('clasifScore');
+  const res={};
+  function score(){const k=Object.keys(res);const ok=k.filter(i=>res[i]).length;sc.textContent=k.length?`Aciertos al primer intento: ${ok} de ${k.length} respondidos (total ${items.length}).`:'';}
+  items.forEach((it,i)=>{
+    const d=document.createElement('div');d.className='item';
+    d.innerHTML=`<p class="e">${it.t}</p><div class="btns">${dimsN.map((n,j)=>`<button class="chip" data-j="${j}">${n}</button>`).join('')}</div>`;
+    d.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+      const j=+b.dataset.j;
+      if(!(i in res)) res[i]=j===it.a;
+      d.querySelectorAll('button').forEach(x=>x.classList.remove('ok','no'));
+      b.classList.add(j===it.a?'ok':'no');
+      if(j!==it.a) d.querySelector(`[data-j="${it.a}"]`).classList.add('ok');
+      score();
+    }));
+    cl.appendChild(d);
+  });
+
+  // ---------- Holones ----------
+  const hol=[
+    {n:'Reproductividad',d:'La posibilidad humana de producir individuos similares, aunque no idénticos, a quienes los produjeron, junto con las construcciones mentales que se forman alrededor de esa posibilidad. Va más allá de tener hijos: incluye la maternidad y paternidad social, y la reproducción de ideas y formas de vida.',a:'En el aula: proyectos de vida, decisiones reproductivas, crianza y cuidados.'},
+    {n:'Género',d:'Las construcciones mentales sobre la pertenencia o no de una persona a las categorías dimórficas (masculino y femenino), y los roles, características y expectativas que cada cultura asigna a cada una.',a:'En el aula: estereotipos, roles en el salón, temas 1, 2 y 3 de esta página.'},
+    {n:'Erotismo',d:'Los procesos humanos en torno al apetito por la excitación sexual, la excitación misma y el orgasmo, sus cualidades placenteras y las construcciones mentales y simbólicas que se forman alrededor de esas experiencias.',a:'En el aula: el derecho al placer, la diferencia entre deseo y presión, el consentimiento.'},
+    {n:'Vinculación afectiva',d:'La capacidad humana de desarrollar afectos intensos (resonancia afectiva) ante la presencia o ausencia, disponibilidad o indisponibilidad de otra persona específica, y las construcciones mentales que se forman alrededor de esos afectos. El amor es su forma más conocida.',a:'En el aula: amistad, noviazgo, celos, rupturas, relaciones violentas.'}
+  ];
+  const hb=document.getElementById('holoBtns'),hp=document.getElementById('holoPanel'),circles=[...document.querySelectorAll('.holo-svg circle')];
+  function pick(i){
+    circles.forEach(c=>c.classList.toggle('on',+c.dataset.h===i));
+    hb.querySelectorAll('.chip').forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+    hp.innerHTML=`<span class="label">Holón ${i+1} de 4</span><h3>${hol[i].n}</h3><p>${hol[i].d}</p><p><b>${hol[i].a}</b></p><p class="chart-src">Rubio Aurioles (1998), en la síntesis de Álvarez-Díaz (2007)</p>`;
+  }
+  hol.forEach((h,i)=>{const b=document.createElement('button');b.className='chip';b.textContent=h.n;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>pick(i));hb.appendChild(b);});
+  circles.forEach(c=>c.addEventListener('click',()=>pick(+c.dataset.h)));
+  pick(0);
+
+  // ---------- Temporizadores ----------
+  document.querySelectorAll('.timer').forEach(t=>{
+    const total=+t.dataset.min*60;let left=total,id=null;
+    const out=t.querySelector('output'),bs=t.querySelector('[data-act="start"]');
+    const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+    function stop(){clearInterval(id);id=null;bs.textContent=left===0?'Terminó':'Continuar';}
+    bs.addEventListener('click',()=>{
+      if(id){stop();return;}
+      if(left===0) left=total;
+      bs.textContent='Pausar';
+      id=setInterval(()=>{left--;out.textContent=fmt(left);if(left<=0){left=0;stop();}},1000);
+    });
+    t.querySelector('[data-act="reset"]').addEventListener('click',()=>{clearInterval(id);id=null;left=total;out.textContent=fmt(left);bs.textContent='Iniciar';});
+  });
+
+  // ---------- Cuestionarios ----------
+  const Q={
+    feminismo:[
+      {p:'Según Karen Offen, ¿qué distingue al feminismo relacional del individualista?',o:['El relacional solo existió en América Latina','El relacional reclama derechos por la contribución distintiva de las mujeres; el individualista, por su autonomía como individuos','El individualista rechaza el voto femenino','No hay diferencia, son sinónimos'],a:1,e:'Offen muestra que ambas tradiciones forman parte de la historia del feminismo.'},
+      {p:'¿En qué año se publicó la reforma que reconoció el voto federal de las mujeres en México?',o:['1917','1947','1953','1974'],a:2,e:'El 17 de octubre de 1953. En 1947 se había reconocido solo el voto municipal.'},
+      {p:'¿Dónde se celebraron los primeros congresos feministas de México, en 1916?',o:['Ciudad de México','Mérida, Yucatán','Querétaro','Puebla'],a:1,e:'En Mérida, durante el gobierno de Salvador Alvarado.'},
+      {p:'¿Qué porcentaje de mujeres que asistieron a la escuela vivió violencia durante su vida escolar, según la ENDIREH 2021?',o:['5.6 %','12.4 %','32.3 %','70.1 %'],a:2,e:'32.3 %. El 70.1 % corresponde a violencia a lo largo de la vida en cualquier ámbito.'}
+    ],
+    masculinidades:[
+      {p:'Para Montesinos, la masculinidad es...',o:['Un mandato biológico fijo','Una construcción social que se expresa de formas distintas según la cultura','Lo mismo en todas las sociedades','Un tema exclusivo de la psicología'],a:1,e:'"La masculinidad no se expresa de manera universal" (Montesinos, 2002, p. 77).'},
+      {p:'En la propuesta de de Keijzer, el varón puede ser factor de riesgo hacia...',o:['Solo las mujeres','Solo sí mismo','Mujeres y niñez, otros hombres y sí mismo','Ninguno, es un concepto médico'],a:2,e:'Es una tríada que retoma la "tríada de la violencia" de Michael Kaufman.'},
+      {p:'¿Qué concepto académico prefieren los estudios de género en lugar de "masculinidad tóxica"?',o:['Masculinidad hegemónica','Masculinidad natural','Hombría biológica','Machismo genético'],a:0,e:'Propuesto por R. W. Connell. Ubica el problema en un sistema de normas y no en individuos aislados.'},
+      {p:'En 2024, ¿qué proporción de las víctimas de homicidio en México fueron hombres?',o:['Cerca de la mitad','Alrededor de 6 de cada 10','Casi 9 de cada 10','Todas'],a:2,e:'87.8 %, según cifras preliminares del INEGI.'}
+    ],
+    identidad:[
+      {p:'La vivencia interna del género tal como cada persona la siente es...',o:['La expresión de género','La identidad de género','La orientación sexual','El sexo asignado'],a:1,e:'Definición de la Corte IDH, OC-24/17, párr. 32.'},
+      {p:'Una persona cuya identidad coincide con el sexo asignado al nacer es...',o:['Trans','Intersexual','Cisgénero','No binaria'],a:2,e:'"Cis" significa "del mismo lado".'},
+      {p:'¿Qué autora sostiene que el género es performativo?',o:['Simone de Beauvoir','Judith Butler','Marta Lamas','Karen Offen'],a:1,e:'En El género en disputa (1990).'},
+      {p:'Según la Corte IDH, ¿la identidad de una persona trans depende de una cirugía?',o:['Sí, siempre','Solo en adultos','No, se construye independientemente de tratamientos médicos','Depende de cada país'],a:2,e:'Por eso el reconocimiento legal no debe exigir requisitos médicos.'}
+    ],
+    sexualidad:[
+      {p:'¿Cuáles son los cuatro holones de la sexualidad según Rubio Aurioles?',o:['Cuerpo, mente, alma y sociedad','Reproductividad, género, erotismo y vinculación afectiva','Sexo, amor, placer y familia','Biología, psicología, derecho y religión'],a:1,e:'Cada holón es un todo y a la vez parte del sistema de la sexualidad.'},
+      {p:'Para Octavio Paz, el erotismo es...',o:['Sinónimo de reproducción','Sexualidad transfigurada: metáfora','Un instinto animal','Un tema solo de la medicina'],a:1,e:'La llama doble (1993).'},
+      {p:'Según la OMS, la sexualidad está presente...',o:['Solo en la edad adulta','Desde la adolescencia','A lo largo de toda la vida','Solo en la vida en pareja'],a:2,e:'Es "un aspecto central del ser humano, presente a lo largo de su vida".'},
+      {p:'La educación integral en sexualidad incluye...',o:['Solo anatomía','Solo métodos anticonceptivos','Relaciones, consentimiento, diversidad, derechos y salud','Solo prevención de infecciones'],a:2,e:'Es el enfoque que promueve la UNESCO.'}
+    ]
+  };
+  document.querySelectorAll('[data-quiz]').forEach(el=>{
+    const qs=Q[el.dataset.quiz];let done=0,ok=0;
+    const mk=document.createElement('p');mk.className='marcador';
+    qs.forEach(q=>{
+      const d=document.createElement('div');d.className='q';
+      d.innerHTML=`<p class="p">${q.p}</p><div class="opts">${q.o.map((o,i)=>`<button data-i="${i}">${o}</button>`).join('')}</div><p class="fb" hidden></p>`;
+      const fb=d.querySelector('.fb');
+      d.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+        const i=+b.dataset.i,r=i===q.a;
+        d.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(+x.dataset.i===q.a)x.classList.add('ok');});
+        if(!r)b.classList.add('no');
+        fb.hidden=false;fb.innerHTML=`<b>${r?'Correcto.':'No exactamente.'}</b> ${q.e}`;
+        done++;if(r)ok++;mk.textContent=`Puntaje: ${ok} de ${done}${done===qs.length?' · Cuestionario terminado':''}`;
+      }));
+      el.appendChild(d);
+    });
+    el.appendChild(mk);
+  });
+})();
+</script>
+
+</body></html>
